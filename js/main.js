@@ -23,10 +23,10 @@ class Producto{
     }
 }
 
-const producto1 = new Producto ("Leña", "Bolsa 6kg", 1500);
-const producto2 = new Producto ("Carbón", "Bolsa 3kg", 1500);
-const producto3 = new Producto ("Leña", "Bolsa 15kg", 3500);
-const producto4 = new Producto ("Leña", "a granel x kg", 200);
+const producto1 = new Producto ("Leña", "Bolsa 6kg", parseInt(1500));
+const producto2 = new Producto ("Carbón", "Bolsa 3kg", parseInt(1500));
+const producto3 = new Producto ("Leña", "Bolsa 15kg", parseInt(3500));
+const producto4 = new Producto ("Leña", "a granel x kg", parseInt(200));
 
 
 
@@ -69,9 +69,9 @@ function buscarPorNombre(arr, filtro){
 function buscarPorPrecio(arr, filtro){
     let result = [];
     for (let i = 0; i < arr.length; i++) {
-        if(filtro >= arr[i]){
+        if(filtro <= arr[i].precio){
             result.push(arr[i])
-        } 
+        }
     }
     return result;
 }
@@ -85,28 +85,28 @@ while(menu != "7"){
         let menuCatalogo = prompt("Elegir opcion: \n1 - Ver catalogo completo \n2 - Buscar producto");
         if(menuCatalogo == "1"){
             for (let i = 0; i < catalogo.length; i++) {
-                listCatalogo =  listCatalogo + catalogo[i].nombre + " precio: $" + catalogo[i].precio + "\n";
+                listCatalogo =  listCatalogo + catalogo[i].nombre + " | Peso: " + catalogo[i].peso + " | Precio: $" + catalogo[i].precio + "\n";
             }
             
             alert("Catalogo de productos: " + listCatalogo);
         }else if(menuCatalogo == "2"){
-            let menuBuscarProducto = prompt(" \n1 - Filtrar por nombre \n2 - filtrar por precio")
+            let menuBuscarProducto = prompt(" \n1 - Filtrar por nombre \n2 - Filtrar por precio")
             if(menuBuscarProducto == "1"){
                 let ingreso = prompt("Ingrese el nombre del producto");
                 let busquedaNombres = "";
                 let arrayNombres = buscarPorNombre(catalogo, ingreso);
                 for (let i = 0; i < arrayNombres.length; i++) {
-                    busquedaNombres =  busquedaNombres + arrayNombres[i].nombre + " precio: $" + arrayNombres[i].precio + "\n";
+                    busquedaNombres =  busquedaNombres + arrayNombres[i].nombre + " | Peso: " + arrayNombres[i].peso +" | Precio: $" + arrayNombres[i].precio + "\n";
                 }
             alert("Productos: " + busquedaNombres);
             } else if(menuBuscarProducto == "2"){
-                let ingreso = prompt("Ingrese el precio del producto");
+                let ingreso = prompt("Ingrese el precio del producto (Se mostraran los productos de igual o mayor precio)");
                 let busquedaPrecios = "";
                 let arrayPrecios = buscarPorPrecio(catalogo, ingreso);
                 for (let i = 0; i < arrayPrecios.length; i++) {
-                    busquedaPrecios =  busquedaPrecios + arrayPrecios[i].nombre + " precio: $" + arrayPrecios[i].precio + "\n";
+                    busquedaPrecios =  busquedaPrecios  + arrayPrecios[i].nombre + " | Peso: " + arrayPrecios[i].peso + " | Precio: $" + arrayPrecios[i].precio + "\n";
                 }
-                alert("Productos: " + busquedaPrecios);
+                alert( "Productos: " + busquedaPrecios);
             }
             
         }
