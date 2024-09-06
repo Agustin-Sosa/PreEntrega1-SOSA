@@ -1,55 +1,58 @@
 
-alert("Bienvenido a Forestales Búfalo, venta de leña y carbón");
-
-class Cliente{
-    constructor(nombre, email, contraseña){
-        this.nombre = nombre;
-        this.email = email;
-        this.contraseña = contraseña;
-    }
-    ingresarCuenta(nombre, contraseña){
-        
-    }
-}
-
-
-const cliente1 = new Cliente ("Agustin Sosa", "agustin@gmail.com", "agustin1234");
-
 class Producto{
-    constructor(nombre, peso, precio){
+    constructor(nombre, peso, precio, img){
         this.nombre = nombre;
         this.peso = peso;
         this.precio = precio;
+        this.img = img;
     }
 }
 
-const producto1 = new Producto ("Leña", "Bolsa 6kg", parseInt(1500));
-const producto2 = new Producto ("Carbón", "Bolsa 3kg", parseInt(1500));
-const producto3 = new Producto ("Leña", "Bolsa 15kg", parseInt(3500));
-const producto4 = new Producto ("Leña", "a granel x kg", parseInt(200));
+const producto1 = new Producto ("Leña", "Bolsa de 6kg", parseInt(1500), "assets/img/bolsaAsado.jpeg");
+const producto2 = new Producto ("Carbón", "Bolsa de 3kg", parseInt(1500), "assets/img/carbon1.jpg");
+const producto3 = new Producto ("Leña", "Bolsa de 15kg", parseInt(3500), "assets/img/descarga.jpg");
+const producto4 = new Producto ("Leña", "suelta por kg", parseInt(200), "assets/img/leña-ASADO.jpeg");
 
 
 
-// let contraseña = "1234";
-let ingresar = false;
 let carrito = {
-    producto1: 0,
-    producto2: 0,
-    producto3: 0,
-    producto4: 0
+    producto1: { ...producto1, cantidad: 0 },
+    producto2: { ...producto2, cantidad: 0 },
+    producto3: { ...producto3, cantidad: 0 },
+    producto4: { ...producto4, cantidad: 0 }
 };
 
 let catalogo = [producto1, producto2, producto3, producto4];
 
-for (let i = 3; i>=1; i--) {
-    let ingreso = prompt("Introduzca el pin de ingreso");
-    if (ingreso == cliente1.contraseña){
-        ingresar = true;
-        break;
-    } else{
-        alert("Contraseña incorrecta");
+const verCarrito = document.getElementById("btn-carrito");
+
+let carritoVisible = false;
+
+verCarrito.addEventListener('click', () => {
+    if (carritoVisible) {
+        contenedorCarrito.innerHTML = "";
+        verCarrito.innerText = "Ver carrito"; 
+        carritoVisible = false; 
+    } else {
+        mostrarCarrito(carrito);
+        verCarrito.innerText = "Ocultar carrito"; 
+        carritoVisible = true; 
     }
+});
+
+function mostrarCarrito(obj) {
+    let html = '';
+    for (const key in obj) {
+        const producto = obj[key];
+        html += 
+        `<div class="">
+            <h2>Cantidad de ${producto.nombre} (${producto.peso}): ${producto.cantidad}</h2>
+        </div>`;
+    }
+    contenedorCarrito.innerHTML = html;
 }
+
+
 
 
 function sumar(a,b){
@@ -77,78 +80,118 @@ function buscarPorPrecio(arr, filtro){
 }
 
 
-if(ingresar){
-    let menu = prompt("Elegir opción: \n1 - Ingresar al catalogo \n2 - Comprar Leña (6kg) \n3 - Comprar Carbón (3kg) \n4 - Consultar carrito \n5 - Eliminar leña del carrito \n6 - Eliminar carbón del carrito \n7 - Salir");
-while(menu != "7"){
-    if(menu == "1"){
-        let listCatalogo = "";
-        let menuCatalogo = prompt("Elegir opcion: \n1 - Ver catalogo completo \n2 - Buscar producto");
-        if(menuCatalogo == "1"){
-            for (let i = 0; i < catalogo.length; i++) {
-                listCatalogo =  listCatalogo + catalogo[i].nombre + " | Peso: " + catalogo[i].peso + " | Precio: $" + catalogo[i].precio + "\n";
-            }
+        function crearHTML(arr){
+            let html = "";
+            arr.forEach((producto, index) => {
+                html += 
+            `<div class="producto">
+            <div class="producto-imagen">
+                <img src="${producto.img}" alt="${producto.nombre}">
+            </div>
+            <div class="producto-info">
+                <h2>${producto.nombre}</h2>
+                <h4>${producto.peso}</h4>
+                <h4>Precio: $ ${producto.precio}</h4>
+                <div class="producto-cantidad" id="cantidad-container-${index}" style="display: none;">
+                    <label for="cantidad-${index}">Cantidad:</label>
+                    <input type="number" id="cantidad-${index}" min="1" value="1">
+                    <button class="btn-confirmar" data-producto="${index}">Confirmar</button>
+                </div>
+            </div>
+            <div class="producto-agregar">
+                <button class="btn-agregar" data-producto="${index}">Agregar al carrito</button>
+            </div>
+            </div>`;
+            });
             
-            alert("Catalogo de productos: " + listCatalogo);
-        }else if(menuCatalogo == "2"){
-            let menuBuscarProducto = prompt(" \n1 - Filtrar por nombre \n2 - Filtrar por precio")
-            if(menuBuscarProducto == "1"){
-                let ingreso = prompt("Ingrese el nombre del producto");
-                let busquedaNombres = "";
-                let arrayNombres = buscarPorNombre(catalogo, ingreso);
-                for (let i = 0; i < arrayNombres.length; i++) {
-                    busquedaNombres =  busquedaNombres + arrayNombres[i].nombre + " | Peso: " + arrayNombres[i].peso +" | Precio: $" + arrayNombres[i].precio + "\n";
+            contenedor.innerHTML += html;
+
+            document.querySelectorAll(".btn-agregar").forEach(boton => {
+                boton.addEventListener("click", (e) => {
+                    let index = e.target.getAttribute("data-producto");
+                    let cantidadContainer = document.getElementById(`cantidad-container-${index}`);
+                    cantidadContainer.style.display = "block";
+                });
+            });
+            document.querySelectorAll(".btn-confirmar").forEach(botonConfirmar => {
+                botonConfirmar.addEventListener("click", (e) => {
+                    let index = e.target.getAttribute("data-producto");
+                    let inputCantidad = document.getElementById(`cantidad-${index}`);
+                    let ingreso = parseInt(inputCantidad.value);
+                    if (ingreso && !isNaN(ingreso) && ingreso > 0) {
+                        carrito[`producto${parseInt(index) + 1}`].cantidad = sumar(carrito[`producto${parseInt(index) + 1}`].cantidad, ingreso);
+                        Swal.fire({
+                            title: "Producto Agregado",
+                            text: `Agregaste ${ingreso} unidades de ${carrito[`producto${parseInt(index) + 1}`].nombre} al carrito.`,
+                            icon: "success"
+                        });
+                        document.getElementById(`cantidad-container-${index}`).style.display = "none";
+                    } else {
+                        Swal.fire({
+                            title: "Cantidad invalida",
+                            icon: "error"
+                        });
+                    }
+                });
+            });
+        }
+        const borrarProducto = document.getElementById("btn-delete");
+
+borrarProducto.addEventListener("click", () => {
+    let eliminarHtml = `
+        <div class="eliminar-producto">
+            <label for="producto-eliminar">¿Qué producto necesita quitar del carrito?</label>
+            <select id="producto-eliminar">
+                <option value="1">Leña (6kg)</option>
+                <option value="2">Carbón</option>
+                <option value="3">Leña (15kg)</option>
+                <option value="4">Leña suelta</option>
+            </select>
+            <label for="cantidad-eliminar">Ingrese la cantidad que desea eliminar:</label>
+            <input type="number" id="cantidad-eliminar" min="1" value="1">
+            <button id="btn-confirmar-eliminar">Confirmar eliminación</button>
+        </div>
+    `;
+    contenedor.innerHTML = eliminarHtml;
+
+    document.getElementById("btn-confirmar-eliminar").addEventListener("click", () => {
+        let productoSeleccionado = document.getElementById("producto-eliminar").value;
+        let cantidadEliminar = parseInt(document.getElementById("cantidad-eliminar").value);
+
+        if (productoSeleccionado && cantidadEliminar && !isNaN(cantidadEliminar)) {
+            let productoKey = `producto${productoSeleccionado}`;
+            if (carrito[productoKey]) {
+                if (cantidadEliminar >= carrito[productoKey].cantidad) {
+                    carrito[productoKey].cantidad = 0;
+                    Swal.fire({
+                        title: "Producto eliminado",
+                        text: `Eliminaste ${ingreso} unidades de ${carrito[`producto${parseInt(index) + 1}`].nombre} al carrito.`,
+                        icon: "success"
+                    });
+                } else {
+                    carrito[productoKey].cantidad = restar(carrito[productoKey].cantidad, cantidadEliminar);
+                    Swal.fire({
+                        title: "Producto Eliminado",
+                        text: `Se eliminaron ${cantidadEliminar} unidades de ${carrito[productoKey].nombre}.`,
+                        icon: "success"
+                    });
                 }
-            alert("Productos: " + busquedaNombres);
-            } else if(menuBuscarProducto == "2"){
-                let ingreso = prompt("Ingrese el precio del producto (Se mostraran los productos de igual o mayor precio)");
-                let busquedaPrecios = "";
-                let arrayPrecios = buscarPorPrecio(catalogo, ingreso);
-                for (let i = 0; i < arrayPrecios.length; i++) {
-                    busquedaPrecios =  busquedaPrecios  + arrayPrecios[i].nombre + " | Peso: " + arrayPrecios[i].peso + " | Precio: $" + arrayPrecios[i].precio + "\n";
-                }
-                alert( "Productos: " + busquedaPrecios);
+            } else {
+                Swal.fire({
+                    title: "El producto seleccionado no es válido",
+                    icon: "error"
+                });
             }
-            
+        } else {
+            Swal.fire({
+                title: "Cantidad invalida",
+                icon: "error"
+            });
         }
-        
-        
-    } else if(menu == "2"){
-        let leña = prompt("Ingrese la cantidad de bolsas que necesite");
-        carrito.producto1 = sumar(carrito.producto1, leña);
-        alert("Producto sumado al carrito con exito");
-    }else if(menu == "3"){ 
-        let carbon = prompt("Ingrese la cantidad de bolsas que necesite");
-        carrito.producto2 = sumar(carrito.producto2, carbon);
-        alert("Producto sumado al carrito con exito");
-    } else if(menu == "4"){
-        alert(
-            "Cantidad de bolsas de leña: " + +carrito.producto1 + "\nCantidad de bolsas de carbón: " + +carrito.producto2
-        );
-    } else if(menu == "5"){
-        let leña = prompt("Ingrese la cantidad de bolsas que necesite quitar");
-        if(+leña > carrito.producto1){
-            carrito.producto1 = 0;
-            alert("Producto eliminado con exito");
-        } else{
-            carrito.producto1 = restar(carrito.producto1, leña);
-            alert("Producto eliminado con exito");
-        }
-    } else if(menu == "6"){
-        let carbon = prompt("Ingrese la cantidad de bolsas que necesite quitar");
-        if(+carbon > carrito.producto2){
-            carrito.producto2 = 0;
-            alert("Producto eliminado con exito");
-        } else{
-            carrito.producto2 = restar(carrito.producto2, carbon);
-            alert("Producto eliminado con exito");
-        }
-    }
-    menu = prompt("Elegir opción: \n1 - Ingresar al catalogo \n2 - Comprar Leña (6kg) \n3 - Comprar Carbón (3kg) \n4 - Consultar carrito \n5 - Eliminar leña del carrito \n6 - Eliminar carbón del carrito \n7 - Salir");
-}
-} else{
-    alert("Intentos de ingreso agotados, revise su gmail para recuperar su contraseña");
-}
+        document.querySelector('.eliminar-producto').remove();
+        crearHTML(catalogo);
+    });
+});
 
 
-
-
+    crearHTML(catalogo);
