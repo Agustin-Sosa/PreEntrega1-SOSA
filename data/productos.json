@@ -1,0 +1,6 @@
+[
+    {"nombre": "Leña", "peso": "Bolsa de 6kg", "precio": 1500, "img": "assets/img/bolsaAsado.jpeg"},
+    {"nombre": "Carbón", "peso": "Bolsa de 3kg", "precio": 1500, "img": "assets/img/carbon1.jpg"},
+    {"nombre": "Leña", "peso": "Bolsa de 6kg", "precio": 3500, "img": "assets/img/descarga.jpg"},
+    {"nombre": "Leña", "peso": "Suelta por kg", "precio": 200, "img": "assets/img/leña-ASADO.jpeg"}
+]
