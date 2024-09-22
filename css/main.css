@@ -1,26 +1,129 @@
 body{
-    background-color: #9c6644;
+    background-color: burlywood;
     color: black;
 }
 
-h1{
-    font-style: italic;
+header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid black;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: burlywood;
 }
 
-h2{
-    font-style: italic;
+.navBar{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.contenedorProductos{
+.navBar ul{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navBar ul li{
+    list-style: none;
+}
+
+.navBar a{
+    text-decoration: underline;
+    color: black;
+    font-family: "Cabin Sketch", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.navBar a:hover{
+    opacity: 0.7;
+}
+
+footer{
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-top: 1px solid black;
+}
+
+.info-footer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.redes{
+    display: flex;
+    width: 50%;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.redes img{
+    width: 34px;
+}
+
+.presentacion{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.producto {
-    width: 50%;
+.presentacion h1{
+    font-size: 3rem;
+}
+
+.container-productos{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-main{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    font-weight: 700;
+}
+
+.btn-main:hover{
+    opacity: 1;
+    background-color: black;
+    color: white;
+}
+
+.contenedorProductos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.producto {
+    width: 20%;
+    display: block;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
@@ -28,8 +131,8 @@ h2{
 }
 
 .producto-imagen img {
-    width: 100px;
-    height: auto;
+    width: 100%;
+    height: 300px;
     margin-right: 20px;
 }
 
@@ -38,9 +141,84 @@ h2{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+}
+
+.producto-info h2{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+.producto-info img{
+    width: 25px;
+    margin-right: 5px;
+    margin-top: 5px;
 }
 
 .producto-agregar {
-    margin-left: 20px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carritoContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10rem;
+    margin-top: 5rem;
+}
+
+.prod-carrito{
+    border: 5px solid white;
+    padding: 7px;
+    margin: 1rem;
+}
+
+.botonesCarrito{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: start;
+    margin-left: 1rem;
+}
+
+.buttonImg{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.formEncargue{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    width: 30rem;
+    height: 22rem;
+    gap: 10px;
+}
+
+.formEncargue input{
+    width: 60%;
+    height: 10%;
+    border-radius: 1rem;
+}
+
+.formEncargue label{
+    font-size: 1.5rem;
 }

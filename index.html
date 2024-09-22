@@ -4,19 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-    <title>Pre Entrega 3</title>
+    <title>Proyecto final JS</title>
 </head>
 <body>
-    <div>
-        <h1>Forestales Búfalo</h1>
-        <h2>¡Bienvenido! Somos una empresa familiar destinada a la produccion y comercializacion de leña y carbón</h2>
+    <header>
+        <div>
+            <img src="./assets/img/logo-bufalo.png" alt="logo">
+        </div>
+        <nav class="navBar">
+            <ul>
+                <li><a href="">Inicio</a></li>
+                <li><a href="#product">Productos</a></li>
+                <li><a href="#btn-carrito">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="presentacion">
+        <h1>Forestáles Búfalo</h1>
+        <h2 id="product">¡Bienvenido! Somos una empresa familiar destinada a la produccion y comercializacion de leña y carbón</h2>
     </div>
-    <div>
-        <button id="btn-carrito">VER CARRITO</button>
-        <div id="contenedorCarrito"></div>
-        <h3>PRODUCTOS</h3>
+    <div class="container-productos" id="">
+        <h3 >PRODUCTOS</h3>
         <div class="contenedorProductos" id="contenedor"></div>
     </div>
+    <div class="container">
+        <div class="carritoContainer">
+            <div class="buttonImg">
+                <img src="./assets/img/carrito-de-compras.png" alt="carrito">
+                <button id="btn-carrito" class="btn-main">VER CARRITO</button>
+            </div>
+            <div id="contenedorCarrito"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="info-footer">
+            <h5><img src="./assets/img/derechos-de-autor.png" alt=""> Desarrollado por Agustin Omar Sosa</h5>
+            <h5><img src="./assets/img/marcador-de-posicion.png" alt=""> Córdoba, Argentina. 2024 </h5>
+        </div>
+        <div class="redes">
+            <h5>Redes sociales</h5>
+            <a href=""><img src="./assets/img/Instagram (1).png" alt="instagram"></a>
+            <a href=""><img src="./assets/img/Facebook.png" alt="facebook"></a>
+            <a href=""><img src="./assets/img/Whatsapp.png" alt="whatsapp"></a>
+        </div>
+    </footer>
+    
     <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
