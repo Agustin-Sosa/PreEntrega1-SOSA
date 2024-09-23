@@ -207,7 +207,7 @@ function buscarPorPrecio(arr, filtro){
                 <img src="./assets/img/etiqueta-de-precio.png">
                 Precio: $ ${producto.precio}
                 </h3>
-                <div class="producto-cantidad" id="cantidad-container-${index}" style="display: none;">
+                <div class="producto-cantidad" id="cantidad-container-${index}" style="display: none; gap: 1rem">
                     <label for="cantidad-${index}">Cantidad:</label>
                     <input type="number" id="cantidad-${index}" min="1" value="1">
                     <button class="btn-confirmar btn-main" data-producto="${index}">Confirmar</button>
@@ -225,7 +225,10 @@ function buscarPorPrecio(arr, filtro){
                 boton.addEventListener("click", (e) => {
                     let index = e.target.getAttribute("data-producto");
                     let cantidadContainer = document.getElementById(`cantidad-container-${index}`);
-                    cantidadContainer.style.display = "block";
+                    cantidadContainer.style.display = "flex";
+                    cantidadContainer.style.flexDirection = "column";
+                    cantidadContainer.style.alignItems = "center";
+                    
                 });
             });
             document.querySelectorAll(".btn-confirmar").forEach(botonConfirmar => {
